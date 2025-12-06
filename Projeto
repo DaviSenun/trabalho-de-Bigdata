@@ -1,0 +1,16 @@
+Import pandas as pd
+
+df = pd.read_csv('Trabalho_big_data.csv', delimiter = ';', low_memory = False)
+
+df = df.loc[:,['DATA_TOA','TIPO DE SERVIÇO','STATUS ATIVIDADE','STATUS','CIDADES','VALOR EMPRESA','TIPO RESIDÊNCIA']]
+
+for i in df.columns:
+    print(f"\n===== {i} =====")
+    print(df[i].value_counts(dropna=False))
+
+df.dropna(subset=['CIDADES'], inplace=True)
+
+df['TIPO RESIDÊNCIA'] = df['TIPO RESIDÊNCIA'].replace("Casa", "CASA")
+
+df.to_csv("Trabalho_tratado.csv", index=False, sep=';', encoding="utf-8-sig")
+print("Arquivo CSV salvo com sucesso!")
